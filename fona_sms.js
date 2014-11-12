@@ -1,6 +1,5 @@
 var Device = require('zetta-device');
 var util = require('util');
-var async = require('async');
 
 var FonaSMS = module.exports = function() {
   Device.call(this);
@@ -149,12 +148,12 @@ FonaSMS.prototype.deleteSMS = function(messageIndex, flag, cb) {
     regexp: /^$/
   },
   {
-    regexps: /OK/
+    regexp: /OK/
   }
   ];
   
   var self = this;
-  this._serialDevice.enqueue(task, null, function() {
+  this._serialDevice.enqueue(tasks, null, function() {
       self.state = 'waiting';
       cb();
     });
@@ -251,4 +250,3 @@ FonaSMS.prototype._getAllSMSMessages = function() {
     }
   });
 }
-
